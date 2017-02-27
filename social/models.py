@@ -3,8 +3,15 @@ from django.db import models
 
 class Provider(models.Model):
     name = models.CharField(max_length=50)
+
     TWITTER = 'TWI'
     INSTAGRAM = 'INS'
+    TYPE_CHOICES = (
+        (TWITTER, 'Twitter'),
+        (INSTAGRAM, 'Instagram')
+    )
+    type = models.CharField(max_length=3, choices=TYPE_CHOICES)
+
     app_id = models.CharField(max_length=100)
     app_secret = models.CharField(max_length=200)
 
