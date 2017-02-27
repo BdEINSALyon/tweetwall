@@ -15,6 +15,9 @@ class Provider(models.Model):
     app_id = models.CharField(max_length=100)
     app_secret = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.type
+
 
 class Feed(models.Model):
     hashtag = models.CharField(max_length=50)
@@ -22,6 +25,9 @@ class Feed(models.Model):
         to=Provider,
         related_name='feeds'
     )
+
+    def __str__(self):
+        return self.hashtag
 
 
 class Message(models.Model):
@@ -64,3 +70,6 @@ class Message(models.Model):
         on_delete=models.CASCADE,
         related_name='messages'
     )
+
+    def __str__(self):
+        return self.author_name + ' on ' + str(self.published_at)
