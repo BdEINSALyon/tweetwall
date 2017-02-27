@@ -34,14 +34,14 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    text = models.TextField()
-    image = models.URLField(max_length=300)
-    video = models.URLField(max_length=300)
+    text = models.TextField(blank=True)
+    image = models.URLField(max_length=300, blank=True)
+    video = models.URLField(max_length=300, blank=True)
     video_is_gif = models.BooleanField(default=False)
 
-    author_name = models.CharField(max_length=50)
+    author_name = models.CharField(max_length=50, blank=True)
     author_username = models.CharField(max_length=50)
-    author_picture = models.URLField(max_length=300)
+    author_picture = models.URLField(max_length=300, blank=True)
     published_at = models.DateTimeField()
     provider = models.ForeignKey(
         to=Provider,
@@ -50,7 +50,7 @@ class Message(models.Model):
     )
     provider_post_id = models.CharField(max_length=20)
 
-    validated_at = models.DateTimeField()
+    validated_at = models.DateTimeField(blank=True)
 
     PENDING = 'PE'
     PUBLISHED = 'PU'
