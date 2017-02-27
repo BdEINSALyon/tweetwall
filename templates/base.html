@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}ProdManager - BdE INSA Lyon{% endblock %}</title>
+    {% block meta %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'lib/css/font-awesome.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'sass/style.css' %}" crossorigin="anonymous">
+    {% block style_head %}
+    {% endblock %}
+    <script src="{% static 'lib/js/jquery-3.1.1.js' %}"></script>
+    <script src="{% static 'lib/js/tether.js' %}"></script>
+    <script src="{% static 'lib/js/bootstrap.js' %}"></script>
+    {% block javascript_head %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
+    {% block main %}
+        <div class="container" id="main">
+            {% block content %}{% endblock %}
+        </div>
+    {% endblock %}
+    {% block footer %}
+        <footer>
+            <p id="copyright-notice">&copy; 2017 BdE INSA Lyon</p>
+        </footer>
+    {% endblock %}
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}
+</body>
+</html>

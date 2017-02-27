@@ -1,0 +1,11 @@
+chardet==2.3.0
+cssselect==1.0.0
+cssutils==1.0.1
+diff-match-patch==20121119
+dj-database-url==0.4.1
+Django==1.10.3
+docker==2.1.0
+docker-pycreds==0.2.1
+requests==2.13.0
+six==1.10.0
+websocket-client==0.40.0
