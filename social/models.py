@@ -25,6 +25,7 @@ class Provider(models.Model):
 class Feed(models.Model):
     class Meta:
         verbose_name = 'flux'
+        verbose_name_plural = 'flux'
 
     hashtag = models.CharField(max_length=50, verbose_name='hashtag')
     providers = models.ManyToManyField(
