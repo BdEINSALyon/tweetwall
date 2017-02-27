@@ -16,7 +16,7 @@ class Provider(models.Model):
     app_secret = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.type
+        return self.get_type_display()
 
 
 class Feed(models.Model):
@@ -50,7 +50,7 @@ class Message(models.Model):
     )
     provider_post_id = models.CharField(max_length=20)
 
-    validated_at = models.DateTimeField(blank=True)
+    validated_at = models.DateTimeField(blank=True, null=True)
 
     PENDING = 'PE'
     PUBLISHED = 'PU'
