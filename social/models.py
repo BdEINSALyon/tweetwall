@@ -2,7 +2,10 @@ from django.db import models
 
 
 class Provider(models.Model):
-    name = models.CharField(max_length=50)
+    class Meta:
+        verbose_name = 'Fournisseur'
+
+    name = models.CharField(max_length=50, verbose_name='nom')
 
     TWITTER = 'TWI'
     INSTAGRAM = 'INS'
@@ -10,20 +13,24 @@ class Provider(models.Model):
         (TWITTER, 'Twitter'),
         (INSTAGRAM, 'Instagram')
     )
-    type = models.CharField(max_length=3, choices=TYPE_CHOICES)
+    type = models.CharField(max_length=3, choices=TYPE_CHOICES, verbose_name='type')
 
-    app_id = models.CharField(max_length=100)
-    app_secret = models.CharField(max_length=200)
+    app_id = models.CharField(max_length=100, verbose_name="identifiant de l'application")
+    app_secret = models.CharField(max_length=200, verbose_name="secret de l'application")
 
     def __str__(self):
         return self.get_type_display()
 
 
 class Feed(models.Model):
-    hashtag = models.CharField(max_length=50)
+    class Meta:
+        verbose_name = 'flux'
+
+    hashtag = models.CharField(max_length=50, verbose_name='hashtag')
     providers = models.ManyToManyField(
         to=Provider,
-        related_name='feeds'
+        related_name='feeds',
+        verbose_name='fournisseurs'
     )
 
     def __str__(self):
@@ -31,26 +38,30 @@ class Feed(models.Model):
 
 
 class Message(models.Model):
+    class Meta:
+        verbose_name = 'message'
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    text = models.TextField(blank=True)
-    image = models.URLField(max_length=300, blank=True)
-    video = models.URLField(max_length=300, blank=True)
-    video_is_gif = models.BooleanField(default=False)
+    text = models.TextField(blank=True, verbose_name='texte')
+    image = models.URLField(max_length=300, blank=True, verbose_name='image')
+    video = models.URLField(max_length=300, blank=True, verbose_name='vidéo')
+    video_is_gif = models.BooleanField(default=False, verbose_name='la vidéo est un GIF')
 
-    author_name = models.CharField(max_length=50, blank=True)
-    author_username = models.CharField(max_length=50)
-    author_picture = models.URLField(max_length=300, blank=True)
-    published_at = models.DateTimeField()
+    author_name = models.CharField(max_length=50, blank=True, verbose_name="nom de l'auteur")
+    author_username = models.CharField(max_length=50, verbose_name="nom d'utilisateur de l'auteur")
+    author_picture = models.URLField(max_length=300, blank=True, verbose_name="image de l'auteur")
+    published_at = models.DateTimeField(verbose_name='publié le')
     provider = models.ForeignKey(
         to=Provider,
         on_delete=models.CASCADE,
-        related_name='messages'
+        related_name='messages',
+        verbose_name='fournisseur'
     )
-    provider_post_id = models.CharField(max_length=20)
+    provider_post_id = models.CharField(max_length=20, verbose_name='identifiant du post chez le fournisseur')
 
-    validated_at = models.DateTimeField(blank=True, null=True)
+    validated_at = models.DateTimeField(blank=True, null=True, verbose_name='validé le')
 
     PENDING = 'PE'
     PUBLISHED = 'PU'
@@ -63,12 +74,13 @@ class Message(models.Model):
         (PROMOTED, 'Promu'),
         (REJECTED, 'Rejeté')
     )
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING, verbose_name='statut')
 
     feed = models.ForeignKey(
         to=Feed,
         on_delete=models.CASCADE,
-        related_name='messages'
+        related_name='messages',
+        verbose_name='flux'
     )
 
     def __str__(self):
