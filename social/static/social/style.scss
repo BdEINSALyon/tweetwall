@@ -1,0 +1,54 @@
+body {
+  background: #3C121C;
+}
+
+#top {
+  text-align: center;
+  font-size: x-large;
+  color: #ffffff;
+  margin: 0.5em;
+}
+
+.container {
+  min-height: 100vh;
+
+  #tweet {
+
+    #card {
+      min-height: 20vh;
+      max-height: 55vh;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: white solid 1rem;
+
+      #text {
+        font-size: xx-large;
+        text-align: center;
+      }
+
+      // Give margin between text and media
+      #text + #media {
+        margin-left: 1rem;
+        max-width: 50%;
+      }
+    }
+
+    #author {
+      margin-top: 2rem;
+      img {
+      }
+      #name {
+        color: white;
+        font-size: xx-large;
+      }
+    }
+
+  }
+
+  #sponsors {
+    img + img {
+      margin-left: 2rem;
+    }
+  }
+}
