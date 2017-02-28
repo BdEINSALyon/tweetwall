@@ -1,0 +1,70 @@
+import datetime
+
+import requests
+from requests.exceptions import HTTPError
+
+from social.models import Message
+
+
+class Provider(object):
+
+    def __init__(self, app_id, app_secret):
+        self.app_id = app_id
+        self.app_secret = app_secret
+
+    # noinspection PyMethodMayBeStatic
+    def get_recent_messages(self, latest_id=None, hashtag="docker", **kwargs):
+        """
+        Get recent messages posted on this provider
+        :return: List of message to add into database
+        :rtype: Message
+        """
+        return []
+
+
+class TwitterProvider(Provider):
+    def __init__(self, app_id, app_secret):
+        super().__init__(app_id, app_secret)
+        self.access_token = None
+        self.auth()
+
+    def auth(self):
+        auth_req = requests.post("https://api.twitter.com/oauth2/token",
+                                 auth=(self.app_id, self.app_secret),
+                                 data={'grant_type': 'client_credentials'}).json()
+        if 'error' in auth_req:
+            raise Exception('Cannot login to Twitter')
+        self.access_token = auth_req['access_token']
+
+    def get_recent_messages(self, latest_id=None, hashtag="docker", **kwargs):
+        try:
+            results = requests.get("https://api.twitter.com/1.1/search/tweets.json", params={
+                'q': '%23{}'.format(hashtag),
+                'count': '100',
+                'since_id': latest_id,
+                'entities': True
+            }, headers={"Authorization": "Bearer {}".format(self.access_token)}).json()
+            messages = []
+            for tweet in results['statuses']:
+                message = Message()
+                message.author_name = tweet['user']['name']
+                message.author_picture = tweet['user']['profile_image_url']
+                message.author_username = "@{}".format(tweet['user']['screen_name'])
+                content = tweet['text']
+                if 'extended_entities' in tweet:
+                    for media in tweet['extended_entities']['media']:
+                        if media['type'] == 'photo':
+                            message.image = media['media_url_https']
+                        if media['type'] in ('animated_gif', 'video'):
+                            variants = media['video_info']['variants']
+                            message.video = variants[len(variants)-1]['url']
+                            if media['type'] == 'animated_gif':
+                                message.video_is_gif = True
+                message.text = content
+                message.published_at = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+                messages.append(message)
+            return messages
+        except HTTPError:
+            self.auth()
+            return self.get_recent_messages(latest_id, hashtag, **kwargs)
+
