@@ -1,6 +1,7 @@
 import datetime
 
 import requests
+from django.utils.timezone import localtime
 from requests.exceptions import HTTPError
 
 from social.models import Message
@@ -67,7 +68,9 @@ class TwitterProvider(Provider):
                             if media['type'] == 'animated_gif':
                                 message.video_is_gif = True
                 message.text = content
-                message.published_at = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+                import pytz
+                locale = pytz.utc
+                message.published_at = locale.localize(datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y'))
                 message.provider = self.provider
                 message.provider_post_id = tweet['id_str']
                 message.feed = feed
