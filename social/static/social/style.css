@@ -1,0 +1,33 @@
+body {
+  background: #3C121C; }
+
+#top {
+  text-align: center;
+  font-size: x-large;
+  color: #ffffff;
+  margin: 0.5em; }
+
+.container {
+  min-height: 100vh; }
+  .container #tweet #card {
+    min-height: 20vh;
+    max-height: 55vh;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: white solid 1rem; }
+    .container #tweet #card #text {
+      font-size: xx-large;
+      text-align: center; }
+    .container #tweet #card #text + #media {
+      margin-left: 1rem;
+      max-width: 50%; }
+  .container #tweet #author {
+    margin-top: 2rem; }
+    .container #tweet #author #name {
+      color: white;
+      font-size: xx-large; }
+  .container #sponsors img + img {
+    margin-left: 2rem; }
+
+/*# sourceMappingURL=style.css.map */

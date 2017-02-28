@@ -9,42 +9,41 @@
         <link rel="stylesheet" href="{% static 'lib/css/font-awesome.css' %}" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'social/style.css' %}" crossorigin="anonymous">
 
-    <script src="{% static 'lib/js/jquery-3.1.1.js' %}"></script>
-    <script src="{% static 'lib/js/tether.js' %}"></script>
-    <script src="{% static 'lib/js/bootstrap.js' %}"></script>
-</head>
-<body>
-<div class="container d-flex flex-column justify-content-around">
-    <div id="top">
-        <img src="{% static 'social/twitter.png' %}" style="height: 2em">
-        <span id="hashtag">#{{ object.hashtag }}</span>
-    </div>
-    <div id="tweet">
-        <div class="d-flex justify-content-around" id="card">
-            <div class="d-flex align-items-center" id="text">
-                La #FEL est présente au Bal du @BdEINSALyon #INSA #transbordeur #balinsalyon #Lyon #etudiant
+        <script src="{% static 'lib/js/jquery-3.1.1.js' %}"></script>
+        <script src="{% static 'lib/js/tether.js' %}"></script>
+        <script src="{% static 'lib/js/bootstrap.js' %}"></script>
+    <script src="{% static 'social/app.js' %}"></script>
+    </head>
+    <body>
+
+        <div class="container d-flex flex-column justify-content-around">
+            <div id="top">
+                <img src="{% static 'social/twitter.png' %}" style="height: 2em">
+                <span id="hashtag">#{{ object.hashtag }}</span>
             </div>
-            <div class="d-flex flex-column justify-content-center" id="media">
-                <img src="https://placehold.it/1000x900" alt="" id="image" class="img-fluid">
-                <video id="video" autoplay style="display: none;">
-                    <source src="" type="video/mp4" id="video-src">
-                </video>
+            <div id="tweet">
+                <div class="d-flex justify-content-around" id="card">
+                    <div class="d-flex align-items-center" id="text">
+                        La #FEL est présente au Bal du @BdEINSALyon #INSA #transbordeur #balinsalyon #Lyon #etudiant
+                    </div>
+                    <div class="d-flex flex-column justify-content-center" id="media">
+                        <img src="https://placehold.it/1000x900" alt="" id="image" class="img-fluid">
+                        <video id="video" autoplay style="display: none;">
+                            <source src="" type="video/mp4" id="video-src">
+                        </video>
+                    </div>
+                </div>
+                <div class="d-flex" id="author">
+                    <div class="col-md-2 align-self-center"><img class="img-fluid rounded img-thumbnail" src="http://pbs.twimg.com/profile_images/825652151535935489/clRte3ms.jpg" alt="Author picture"></div>
+                    <div class="col-md-10 align-self-center" id="name">Gabriel A. (@Crocmagnon)</div>
+                </div>
             </div>
+                <div id="sponsors" class="d-flex align-items-center justify-content-around">
+                    <img class="img-fluid" src="{% static 'social/insa_white.png' %}" width="250px" alt="Logo INSA Lyon">
+                    <img class="img-fluid" src="{% static 'social/bde_white.png' %}" width="90px" alt="Logo BdE INSA Lyon">
+                    <img class="img-fluid" src="{% static 'social/bnp_white.png' %}" width="450px" alt="Logo BNP Paribas">
+                </div>
         </div>
-        <div class="d-flex" id="author">
-            <div class="col-md-2 align-self-center">
-                <img class="img-fluid rounded img-thumbnail"
-                     src="http://pbs.twimg.com/profile_images/825652151535935489/clRte3ms.jpg"
-                     alt="Author picture">
-            </div>
-            <div class="col-md-10 align-self-center" id="name">Gabriel A. (@Crocmagnon)</div>
-        </div>
-    </div>
-    <div id="sponsors" class="d-flex align-items-center justify-content-around">
-        <img class="img-fluid" src="{% static 'social/insa_white.png' %}" width="250px" alt="Logo INSA Lyon">
-        <img class="img-fluid" src="{% static 'social/bde_white.png' %}" width="90px" alt="Logo BdE INSA Lyon">
-        <img class="img-fluid" src="{% static 'social/bnp_white.png' %}" width="450px" alt="Logo BNP Paribas">
-    </div>
-</div>
-</body>
+
+    </body>
 </html>
