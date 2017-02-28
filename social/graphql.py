@@ -28,6 +28,7 @@ class Provider(DjangoObjectType):
     class Meta:
         model = models.Provider
         interfaces = (Node,)
+        exclude_fields = ['app_id', 'app_secret']
 
 
 class Query(ObjectType):
