@@ -8,40 +8,46 @@ from social.models import Message
 
 class Provider(object):
 
-    def __init__(self, app_id, app_secret):
-        self.app_id = app_id
-        self.app_secret = app_secret
+    def __init__(self, provider):
+        self.provider = provider
 
     # noinspection PyMethodMayBeStatic
-    def get_recent_messages(self, latest_id=None, hashtag="docker", **kwargs):
+    def get_recent_messages(self, feed, **kwargs):
         """
         Get recent messages posted on this provider
         :return: List of message to add into database
         :rtype: Message
         """
+        last_id = feed.messages.filter(providers=(self.provider,)).last().provider_post_id
         return []
 
 
 class TwitterProvider(Provider):
-    def __init__(self, app_id, app_secret):
-        super().__init__(app_id, app_secret)
+    def __init__(self, provider):
+        super().__init__(provider)
         self.access_token = None
         self.auth()
 
     def auth(self):
         auth_req = requests.post("https://api.twitter.com/oauth2/token",
-                                 auth=(self.app_id, self.app_secret),
+                                 auth=(self.provider.app_id, self.provider.app_secret),
                                  data={'grant_type': 'client_credentials'}).json()
         if 'error' in auth_req:
             raise Exception('Cannot login to Twitter')
         self.access_token = auth_req['access_token']
 
-    def get_recent_messages(self, latest_id=None, hashtag="docker", **kwargs):
+    def get_recent_messages(self, feed, **kwargs):
         try:
+            last_message = feed.messages.filter(provider=self.provider).order_by('published_at').last()
+            if last_message is None:
+                last_id = None
+            else:
+                last_id = last_message.provider_post_id
+
             results = requests.get("https://api.twitter.com/1.1/search/tweets.json", params={
-                'q': '%23{}'.format(hashtag),
+                'q': '%23{}'.format(feed.hashtag),
                 'count': '100',
-                'since_id': latest_id,
+                'since_id': last_id,
                 'entities': True
             }, headers={"Authorization": "Bearer {}".format(self.access_token)}).json()
             messages = []
@@ -62,7 +68,11 @@ class TwitterProvider(Provider):
                                 message.video_is_gif = True
                 message.text = content
                 message.published_at = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+                message.provider = self.provider
+                message.provider_post_id = tweet['id_str']
+                message.feed = feed
                 messages.append(message)
+                message.save()
             return messages
         except HTTPError:
             self.auth()
