@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social.apps.SocialConfig',
     'account.apps.AccountConfig',
-    'permissions.apps.PermissionsConfig'
+    'permissions.apps.PermissionsConfig',
+    'graphene_django'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,7 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/'
+
+GRAPHENE = {
+    'SCHEMA': 'social.graphql.schema'
+}
