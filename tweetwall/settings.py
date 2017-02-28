@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social.apps.SocialConfig',
+    'moderation.apps.ModerationConfig',
     'account.apps.AccountConfig',
     'permissions.apps.PermissionsConfig',
     'graphene_django'
