@@ -1,5 +1,80 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h1 class="pull-left">#{{ object.hashtag }}</h1>
+    <form class="pull-right" action="{% url 'feed_refresh' pk=object.pk %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit"><i class="fa fa-refresh"></i></button>
+    </form>
 
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Expediteur</th>
+                <th>Contenu</th>
+                <th>Etat</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for message in message_list %}
+            <tr>
+                <td><img height="64px" width="64px" src="{{ message.author_picture }}"> {{ message.author_username }}</td>
+                <td>
+                    <p>{{ message.text }}</p>
+                    {% if message.image %}
+                        <div class="text-center"><img src="{{ message.image }}" width="75%"></div>
+                    {% endif %}
+                    {% if message.video %}
+                        <div class="text-center"><video width="75%" controls><source src="{{ message.video }}" type="video/mp4"></video></div>
+                    {% endif %}
+
+
+                </td>
+                <td class="text-center">
+                    <div style="font-size: xx-large">
+                        {% if message.status == 'PU' %}
+                            <span class="badge badge-success">Publié</span><br>
+                        {% elif message.status == 'PE' %}
+                            <span class="badge badge-warning">En Attente</span><br>
+                        {% elif message.status == 'RE' %}
+                            <span class="badge badge-danger">Rejeté</span><br>
+                        {% elif message.status == 'PR' %}
+                            <span class="badge badge-info">Publié (mis en avant)</span><br>
+                        {% endif %}
+                    </div>
+                    <div class="btn-group-sm btn-group">
+                        {% if message.status != 'PU' %}
+                            <a class="btn btn-success text-white" href="{% url 'message_moderate' message.id 'PU' %}" ><i class="fa fa-check"></i> Valider</a>
+                        {% endif %}
+                        {% if message.status != 'RE' %}
+                            <a class="btn btn-danger text-white" href="{% url 'message_moderate' message.id 'RE' %}"><i class="fa fa-exclamation"></i> Rejeter</a>
+                        {% endif %}
+                        {% if message.status != 'PR' %}
+                            <a class="btn btn-info text-white" href="{% url 'message_moderate' message.id 'PR' %}"><i class="fa fa-star"></i> Promouvoir</a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function(){
+            $(window).scroll(function() {
+              sessionStorage.scrollTop = $(this).scrollTop();
+            });
+
+        });
+        $(document).ready(function() {
+              if (sessionStorage.scrollTop != "undefined") {
+                setTimeout(function(){
+                    $(window).scrollTop(sessionStorage.scrollTop);
+                }, 350);
+              }
+        });
+    </script>
 {% endblock %}

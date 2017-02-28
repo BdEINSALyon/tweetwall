@@ -64,9 +64,13 @@ class TwitterProvider(Provider):
                             message.image = media['media_url_https']
                         if media['type'] in ('animated_gif', 'video'):
                             variants = media['video_info']['variants']
-                            message.video = variants[len(variants)-1]['url']
-                            if media['type'] == 'animated_gif':
-                                message.video_is_gif = True
+                            # Select the MP4 with the best bitrate
+                            mp4 = [variant for variant in variants if variant['content_type'] == 'video/mp4']
+                            if len(mp4) > 0:
+                                best_bitrate = max(mp4, key=lambda item: item['bitrate'])
+                                message.video = best_bitrate['url']
+                                if media['type'] == 'animated_gif':
+                                    message.video_is_gif = True
                 message.text = content
                 import pytz
                 locale = pytz.utc
@@ -79,5 +83,5 @@ class TwitterProvider(Provider):
             return messages
         except HTTPError:
             self.auth()
-            return self.get_recent_messages(latest_id, hashtag, **kwargs)
+            return self.fetch_messages(feed, **kwargs)
 
