@@ -37,7 +37,7 @@ class TwitterProvider(Provider):
             raise Exception('Cannot login to Twitter')
         self.access_token = auth_req['access_token']
 
-    def get_recent_messages(self, feed, **kwargs):
+    def fetch_messages(self, feed, **kwargs):
         try:
             last_message = feed.messages.filter(provider=self.provider).order_by('published_at').last()
             if last_message is None:

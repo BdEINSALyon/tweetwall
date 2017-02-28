@@ -18,6 +18,14 @@ class Provider(models.Model):
     app_id = models.CharField(max_length=100, verbose_name="identifiant de l'application")
     app_secret = models.CharField(max_length=200, verbose_name="secret de l'application")
 
+    @property
+    def provider_instance(self):
+        from social import provider
+        if self.type == Provider.TWITTER:
+            return provider.TwitterProvider(self)
+        else:
+            return provider.Provider(self)
+
     def __str__(self):
         return self.get_type_display()
 
