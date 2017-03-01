@@ -1,11 +1,12 @@
 body {
-  background: #3C121C; }
+  background: linear-gradient(rgba(60, 18, 28, 0.45), rgba(60, 18, 28, 0.45)), url(background.png);
+  background-size: cover; }
 
 #top {
   text-align: center;
-  font-size: x-large;
+  font-size: 2.5em;
   color: #ffffff;
-  margin: 0.5em; }
+  margin: 0.5rem; }
 
 .container {
   min-height: 100vh; }
