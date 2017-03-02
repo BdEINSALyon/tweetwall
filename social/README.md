@@ -1,6 +1,8 @@
 # Social app
 ## Graphql
 ### Request example
+The request is a GET to the API endpoint with the `query` parameter.
+
 This request will fetch all published and promoted messages :
 ```
 {
