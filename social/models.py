@@ -20,11 +20,13 @@ class Provider(models.Model):
 
     @property
     def provider_instance(self):
-        from social import provider
+        from social.providers import base, twitter, instagram
         if self.type == Provider.TWITTER:
-            return provider.TwitterProvider(self)
+            return twitter.TwitterProvider(self)
+        if self.type == Provider.INSTAGRAM:
+            return instagram.InstagramProvider(self)
         else:
-            return provider.Provider(self)
+            return base.Provider(self)
 
     def __str__(self):
         return self.get_type_display()
