@@ -1,4 +1,6 @@
 import datetime
+import json
+import re
 
 import xmltodict
 import requests
@@ -39,11 +41,20 @@ class InstagramProvider(Provider):
             else:
                 continue
 
+            r = requests.get(item['link'])
+            user_re = re.compile(r'"owner": ({.*?})')
+            m = user_re.search(r.text)
+
             message = Message()
-            # message.author_name = item['']
-            # message.author_picture = item['user']['profile_image_url']
-            # message.author_username = "@{}".format(item['user']['screen_name'])
-            message.author_username = item['guid']
+
+            if m.group(1):
+                user_data = json.loads(m.group(1))
+                message.author_name = user_data.get('full_name', '')
+                message.author_picture = user_data.get('profile_pic_url', '')
+                message.author_username = "@{}".format(user_data.get('username'))
+            else:
+                message.author_username = item['guid']
+
             if 'enclosure' in item:
                 media = item['enclosure']
                 if 'image' in media['@type']:
