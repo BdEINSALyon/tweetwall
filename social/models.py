@@ -96,3 +96,20 @@ class Message(models.Model):
 
     def __str__(self):
         return self.author_name + ' on ' + str(self.published_at)
+
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "text": self.text,
+            "image": self.image,
+            "video": self.video,
+            "videoIsGif": self.video_is_gif,
+            "authorName": self.author_name,
+            "authorUsername": self.author_username,
+            "authorPicture": self.author_picture,
+            "publishedAt": self.published_at.isoformat(),
+            "providerPostId": self.provider_id,
+            "provider": self.provider.name,
+            "validatedAt": self.validated_at,
+            "status": self.status
+        }

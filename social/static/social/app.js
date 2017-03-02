@@ -1,7 +1,7 @@
 $(function () {
 
-    const REFRESH_POOL_INTERVAL = 9000;
-    const TWEET_INTERVAL = 6000;
+    const REFRESH_POOL_INTERVAL = 20000;
+    const TWEET_INTERVAL = 6500;
     const ANIMATIONS_IN = "bounceInDown bounceInLeft bounceInRight bounceInUp  slideInDown slideInLeft slideInRight slideInUp".split(" ");
     const ANIMATIONS_OUT = "bounceOutDown bounceOutLeft bounceOutRight bounceOutUp slideOutDown slideOutLeft slideOutRight slideOutUp".split(" ");
 
@@ -13,12 +13,12 @@ $(function () {
     const $tweet = $('#tweet');
     const $authorPicture = $('#authorPicture');
     const $authorName = $('#authorName');
-    const feedGraphQLID = btoa($('body').data('feed-id'));
+    const feedId = $('body').data('feed-id');
 
     function refreshPool() {
-        $.get("/graphql?query={ promoted: allMessages(status: \"PR\", feedId:\""+feedGraphQLID+"\") { edges { node { ...messagesFields } } } published: allMessages(status: \"PU\", feedId:\""+feedGraphQLID+"\") { edges { node { ...messagesFields } } }}fragment messagesFields on Message { id text image video videoIsGif authorName authorUsername authorPicture publishedAt provider { type } providerPostId validatedAt  status}").then(function (response) {
-            var promoted = response.data.promoted.edges;
-            var published = response.data.published.edges;
+        $.get("/feed/"+feedId+".json").then(function (response) {
+            var promoted = response.data.promoted;
+            var published = response.data.published;
             if (messages.length === 0) setTimeout(loadNextMessage, 500);
             messages = promoted.concat(published).concat(promoted);
         });
@@ -28,7 +28,7 @@ $(function () {
     setInterval(refreshPool, REFRESH_POOL_INTERVAL);
 
     function loadNextMessage() {
-        var message = _.sample(messages).node;
+        var message = _.sample(messages);
         var animation_out = _.sample(ANIMATIONS_OUT);
         $tweet.addClass('animated ' + animation_out);
         $tweet.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
