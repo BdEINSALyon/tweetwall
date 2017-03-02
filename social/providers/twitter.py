@@ -39,7 +39,7 @@ class TwitterProvider(Provider):
             for tweet in results['statuses']:
                 message = Message()
                 message.author_name = tweet['user']['name']
-                message.author_picture = tweet['user']['profile_image_url']
+                message.author_picture = tweet['user']['profile_image_url'].replace('_normal','')
                 message.author_username = "@{}".format(tweet['user']['screen_name'])
                 content = tweet['text']
                 if 'extended_entities' in tweet:

@@ -1,6 +1,7 @@
 body {
   background: linear-gradient(rgba(60, 18, 28, 0.45), rgba(60, 18, 28, 0.45)), url(background.png);
   background-size: cover;
+  overflow: hidden;
 }
 
 #top {
@@ -14,6 +15,9 @@ body {
   min-height: 100vh;
 
   #tweet {
+
+    margin: 0 auto;
+    width: 75vw;
 
     #card {
       min-height: 20vh;
@@ -35,11 +39,40 @@ body {
       }
     }
 
+    &.no-media{
+      width: 50vw;
+
+      #media{
+        display: none !important;
+      }
+      #text{
+        max-width: 100% !important;
+      }
+    }
+
+    #media{
+      img{
+        display: block;
+      }
+      video{
+        display: none;
+      }
+    }
+
+    #media.video{
+      img{
+        display: none !important;
+      }
+      video{
+        display: block !important;
+      }
+    }
+
     #author {
       margin-top: 2rem;
       img {
       }
-      #name {
+      #authorName {
         color: white;
         font-size: xx-large;
       }

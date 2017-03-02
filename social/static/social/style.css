@@ -1,6 +1,7 @@
 body {
   background: linear-gradient(rgba(60, 18, 28, 0.45), rgba(60, 18, 28, 0.45)), url(background.png);
-  background-size: cover; }
+  background-size: cover;
+  overflow: hidden; }
 
 #top {
   text-align: center;
@@ -10,24 +11,41 @@ body {
 
 .container {
   min-height: 100vh; }
-  .container #tweet #card {
-    min-height: 20vh;
-    max-height: 55vh;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    border: white solid 1rem; }
-    .container #tweet #card #text {
-      font-size: xx-large;
-      text-align: center; }
-    .container #tweet #card #text + #media {
-      margin-left: 1rem;
-      max-width: 50%; }
-  .container #tweet #author {
-    margin-top: 2rem; }
-    .container #tweet #author #name {
-      color: white;
-      font-size: xx-large; }
+  .container #tweet {
+    margin: 0 auto;
+    width: 75vw; }
+    .container #tweet #card {
+      min-height: 20vh;
+      max-height: 55vh;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: white solid 1rem; }
+      .container #tweet #card #text {
+        font-size: xx-large;
+        text-align: center; }
+      .container #tweet #card #text + #media {
+        margin-left: 1rem;
+        max-width: 50%; }
+    .container #tweet.no-media {
+      width: 50vw; }
+      .container #tweet.no-media #media {
+        display: none !important; }
+      .container #tweet.no-media #text {
+        max-width: 100% !important; }
+    .container #tweet #media img {
+      display: block; }
+    .container #tweet #media video {
+      display: none; }
+    .container #tweet #media.video img {
+      display: none !important; }
+    .container #tweet #media.video video {
+      display: block !important; }
+    .container #tweet #author {
+      margin-top: 2rem; }
+      .container #tweet #author #authorName {
+        color: white;
+        font-size: xx-large; }
   .container #sponsors img + img {
     margin-left: 2rem; }
 

@@ -2,19 +2,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="refresh" content="60">
+        <meta http-equiv="refresh" content="900">
 
         <title>Wall</title>
         <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'lib/css/font-awesome.css' %}" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'social/style.css' %}" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
 
         <script src="{% static 'lib/js/jquery-3.1.1.js' %}"></script>
         <script src="{% static 'lib/js/tether.js' %}"></script>
         <script src="{% static 'lib/js/bootstrap.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
         <script src="{% static 'social/app.js' %}"></script>
     </head>
-    <body>
+    <body data-feed-id="Feed:{{ object.pk }}">
         <div class="container d-flex flex-column justify-content-around">
             <div id="top">
                 <img src="{% static 'social/twitter.png' %}" style="height: 2em">
@@ -23,18 +25,17 @@
             <div id="tweet">
                 <div class="d-flex justify-content-around" id="card">
                     <div class="d-flex align-items-center" id="text">
-                        La #FEL est présente au Bal du @BdEINSALyon #INSA #transbordeur #balinsalyon #Lyon #etudiant
+
                     </div>
                     <div class="d-flex flex-column justify-content-center" id="media">
-                        <img src="https://placehold.it/1000x900" alt="" id="image" class="img-fluid">
-                        <video id="video" autoplay style="display: none;">
-                            <source src="" type="video/mp4" id="video-src">
+                        <img src="" alt="" id="image" class="img-fluid">
+                        <video id="video" autoplay>
                         </video>
                     </div>
                 </div>
                 <div class="d-flex" id="author">
-                    <div class="col-md-2 align-self-center"><img class="img-fluid rounded img-thumbnail" src="http://pbs.twimg.com/profile_images/825652151535935489/clRte3ms.jpg" alt="Author picture"></div>
-                    <div class="col-md-10 align-self-center" id="name">Gabriel A. (@Crocmagnon)</div>
+                    <div class="col-md-2 align-self-center"><img class="img-fluid rounded img-thumbnail" id="authorPicture" src="" alt="Author picture"></div>
+                    <div class="col-md-10 align-self-center" id="authorName"></div>
                 </div>
             </div>
             <div id="sponsors" class="d-flex align-items-center justify-content-around">

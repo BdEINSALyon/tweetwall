@@ -15,6 +15,7 @@ class Message(DjangoObjectType):
             'author_name': ['exact', 'icontains', 'istartswith'],
             'author_username': ['exact', 'icontains', 'istartswith'],
             'status': ['exact'],
+            'feed_id': ['exact']
         }
 
 
