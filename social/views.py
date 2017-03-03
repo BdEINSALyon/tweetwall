@@ -18,8 +18,8 @@ class Screen(DetailView):
 class GetFeedData(View):
 
     def get(self, request, feed):
-        messages_pub = Message.objects.filter(feed_id=feed, status=Message.PUBLISHED).order_by('validated_at')[:20]
-        messages_pro = Message.objects.filter(feed_id=feed, status=Message.PROMOTED).order_by('validated_at')[:20]
+        messages_pub = Message.objects.filter(feed_id=feed, status=Message.PUBLISHED).order_by('-validated_at')[:20]
+        messages_pro = Message.objects.filter(feed_id=feed, status=Message.PROMOTED).order_by('-validated_at')[:20]
         return HttpResponse(json.dumps({"data": {
             "published": [obj.as_dict() for obj in messages_pub],
             "promoted": [obj.as_dict() for obj in messages_pro],
