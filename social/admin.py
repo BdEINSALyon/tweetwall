@@ -8,7 +8,7 @@ class MessageAdmin(admin.ModelAdmin):
     list_display = ['author_username', 'published_at', 'status', 'provider']
     list_display_links = ['author_username']
     list_editable = ['status']
-    ordering = ['published_at']
+    ordering = ['-published_at']
 
 
 @admin.register(models.Provider)
