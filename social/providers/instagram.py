@@ -49,7 +49,12 @@ class InstagramProvider(Provider):
 
             if m.group(1):
                 user_data = json.loads(m.group(1))
-                message.author_name = user_data.get('full_name', '')
+                author_name = user_data.get('full_name', '')
+
+                if author_name is None:
+                    author_name = ''
+
+                message.author_name = author_name
                 message.author_picture = user_data.get('profile_pic_url', '')
                 message.author_username = "@{}".format(user_data.get('username'))
             else:
