@@ -55,10 +55,12 @@ body {
   #tweet #author {
     margin-top: 2rem; }
     #tweet #author img {
-      height: 17vh; }
+      height: 17vh;
+      min-width: 17vh; }
     #tweet #author #authorName {
       color: white;
-      font-size: xx-large; }
+      font-size: xx-large;
+      margin-left: 2rem; }
 
 #sponsors {
   position: absolute;

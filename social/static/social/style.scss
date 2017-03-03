@@ -83,10 +83,12 @@ body {
     margin-top: 2rem;
     img {
       height: 17vh;
+      min-width: 17vh;
     }
     #authorName {
       color: white;
       font-size: xx-large;
+      margin-left: 2rem;
     }
   }
 
