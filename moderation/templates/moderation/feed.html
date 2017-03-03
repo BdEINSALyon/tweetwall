@@ -19,7 +19,11 @@
         <tbody>
             {% for message in message_list %}
             <tr>
-                <td><img height="64px" width="64px" src="{{ message.author_picture }}"> {{ message.author_username }}</td>
+                <td>
+                    <p><img height="64px" width="64px" src="{{ message.author_picture }}"> {{ message.author_username }}</p>
+                    <p>{{ message.published_at }}</p>
+                    <p>{{ message.provider.get_type_display }}</p>
+                </td>
                 <td>
                     <p>{{ message.text }}</p>
                     {% if message.image %}
