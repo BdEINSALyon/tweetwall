@@ -17,34 +17,32 @@
         <script src="{% static 'social/app.js' %}"></script>
     </head>
     <body data-feed-id="{{ object.pk }}">
-        <div class="container d-flex flex-column justify-content-around">
-            <div id="top">
-                <img src="{% static 'social/twitter.png' %}" style="height: 2em">
-                <span id="hashtag">#{{ object.hashtag }}</span>
-            </div>
-            <div id="tweet">
-                <div class="d-flex justify-content-around" id="card">
-                    <div class="d-flex align-items-center" id="text">
+        <div id="top">
+            <img src="{% static 'social/twitter.png' %}" style="height: 2em">
+            <span id="hashtag">#{{ object.hashtag }}</span>
+        </div>
+        <div id="tweet">
+            <div class="d-flex justify-content-around" id="card">
+                <div class="d-flex align-items-center" id="text">
 
-                    </div>
-                    <div class="d-flex flex-column justify-content-center" id="media">
-                        <img src="" alt="" id="image" class="img-fluid">
-                        <video id="video" autoplay>
-                        </video>
-                    </div>
                 </div>
-                <div class="d-flex" id="author">
-                    <div class="col-md-2 align-self-center"><img class="img-fluid rounded img-thumbnail" id="authorPicture" src="" alt="Author picture"></div>
-                    <div class="col-md-10 align-self-center" id="authorName"></div>
+                <div class="d-flex flex-column justify-content-center" id="media">
+                    <img src="" alt="" id="image" class="img-fluid">
+                    <video id="video" autoplay>
+                    </video>
                 </div>
             </div>
-            <div id="sponsors" class="d-flex align-items-center justify-content-around">
-                <img class="img-fluid" src="{% static 'social/insa_white.png' %}" width="250px" alt="Logo INSA Lyon">
-                <img class="img-fluid" src="{% static 'social/bde_white.png' %}" width="90px" alt="Logo BdE INSA Lyon">
-                <img class="img-fluid" src="{% static 'social/bnp_white.png' %}" width="450px" alt="Logo BNP Paribas">
-                <img class="img-fluid" src="{% static 'social/5717_white.png' %}" width="100px" alt="Logo BNP Paribas">
-                <img class="img-fluid" src="{% static 'social/virgin_white.png' %}" width="100px" alt="Logo BNP Paribas">
+            <div class="d-flex" id="author">
+                <div class="col-md-2 align-self-center"><img class="img-fluid rounded img-thumbnail" id="authorPicture" src="" alt="Author picture"></div>
+                <div class="col-md-10 align-self-center" id="authorName"></div>
             </div>
+        </div>
+        <div id="sponsors" class="d-flex align-items-center justify-content-around">
+            <img class="img-fluid" src="{% static 'social/insa_white.png' %}" alt="Logo INSA Lyon">
+            <img class="img-fluid" src="{% static 'social/bde_white.png' %}" alt="Logo BdE INSA Lyon">
+            <img class="img-fluid" src="{% static 'social/bnp_white.png' %}" alt="Logo BNP Paribas">
+            <img class="img-fluid" src="{% static 'social/5717_white.png' %}" alt="Logo BNP Paribas">
+            <img class="img-fluid" src="{% static 'social/virgin_white.png' %}" alt="Logo BNP Paribas">
         </div>
     </body>
 </html>

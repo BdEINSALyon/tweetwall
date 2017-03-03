@@ -2,6 +2,8 @@ body {
   background: linear-gradient(rgba(60, 18, 28, 0.45), rgba(60, 18, 28, 0.45)), url(background.png);
   background-size: cover;
   overflow: hidden;
+  height: 100vh;
+  width: 100vw;
 }
 
 #top {
@@ -9,80 +11,101 @@ body {
   font-size: 2.5em;
   color: #ffffff;
   margin: 0.5rem;
+  height: 10vh;
+  position: absolute;
+  top: 0;
+  left:0;
+  right:0;
 }
 
-.container {
-  min-height: 100vh;
+#tweet {
 
-  #tweet {
+  margin: 0 auto;
+  position: absolute;
+  top: 17vh;
+  left: 10vw;
+  right: 10vw;
+  bottom: 15vh;
 
-    margin: 0 auto;
-    width: 75vw;
 
-    #card {
-      min-height: 20vh;
-      max-height: 55vh;
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      border: white solid 1rem;
+  #card {
+    min-height: 20vh;
+    max-height: 55vh;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: white solid 1rem;
 
-      #text {
-        font-size: xx-large;
-        text-align: center;
-      }
-
-      // Give margin between text and media
-      #text + #media {
-        margin-left: 1rem;
-        max-width: 50%;
-      }
+    #text {
+      font-size: xx-large;
+      text-align: center;
     }
 
-    &.no-media{
-      width: 50vw;
-
-      #media{
-        display: none !important;
-      }
-      #text{
-        max-width: 100% !important;
-      }
+    // Give margin between text and media
+    #text + #media {
+      margin-left: 1rem;
+      max-width: 50%;
     }
-
-    #media{
-      img{
-        display: block;
-      }
-      video{
-        display: none;
-      }
-    }
-
-    #media.video{
-      img{
-        display: none !important;
-      }
-      video{
-        display: block !important;
-      }
-    }
-
-    #author {
-      margin-top: 2rem;
-      img {
-      }
-      #authorName {
-        color: white;
-        font-size: xx-large;
-      }
-    }
-
   }
 
-  #sponsors {
-    img + img {
-      margin-left: 2rem;
+  &.no-media{
+    width: 50vw;
+
+    #media{
+      display: none !important;
     }
+    #text{
+      max-width: 100% !important;
+    }
+  }
+
+  #media{
+    img{
+      display: block;
+      max-height: 40vh;
+    }
+    video{
+      display: none;
+      max-height: 40vh;
+    }
+  }
+
+  #media.video{
+    img{
+      display: none !important;
+    }
+    video{
+      display: block !important;
+    }
+  }
+
+  #author {
+    margin-top: 2rem;
+    img {
+      height: 17vh;
+    }
+    #authorName {
+      color: white;
+      font-size: xx-large;
+    }
+  }
+
+}
+
+#sponsors {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 13vh;
+  z-index: 99999;
+  background: rgba(0,0,0,0.5);
+  img + img {
+    margin-left: 2rem;
+  }
+  img{
+    max-height: 9vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
   }
 }
