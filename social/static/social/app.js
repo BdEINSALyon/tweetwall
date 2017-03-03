@@ -42,7 +42,7 @@ $(function () {
             $video[0].autoplay = false;
             $video.find('source').remove();
 
-            $authorName.html(message.authorName);
+            $authorName.html(message.authorName + " (" + message.authorUsername + ")");
             $authorPicture.attr('src', message.authorPicture);
 
             if (message.image !== "") {
