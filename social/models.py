@@ -70,7 +70,7 @@ class Message(models.Model):
         related_name='messages',
         verbose_name='fournisseur'
     )
-    provider_post_id = models.CharField(max_length=20, verbose_name='identifiant du post chez le fournisseur')
+    provider_post_id = models.CharField(max_length=200, verbose_name='identifiant du post chez le fournisseur')
 
     validated_at = models.DateTimeField(blank=True, null=True, verbose_name='validé le')
 
